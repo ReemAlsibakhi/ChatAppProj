@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ChatApp</string>
+    <string name="userName">User Name</string>
+    <string name="email">Email</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="create_account">Create an account</string>
+    <string name="login">Login</string>
+    <string name="create_new_project">Create New Account</string>
+    <string name="chat">Chat</string>
+    <string name="logout">Logout</string>
+    <string name="type_message">Type Message</string>
+    <string name="field_required">This Field Required</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="phone_valid">The phone must be at least 9 digits</string>
+    <string name="enter_activation_code">Enter activation code</string>
+    <string name="resend">Resend</string>
+    <string name="please_wait_while_send_code">Please wait while send code</string>
+    <string name="code_verified">Code Verified</string>
+    <string name="verification_code_is_invalid">Verification code is invalid</string>
+    <string name="this_field_equired">This field is required</string>
+
+</resources>
