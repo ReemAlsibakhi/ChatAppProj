@@ -29,7 +29,7 @@ import team.co.chatapp.model.ChatChannel;
 import team.co.chatapp.model.User;
 import team.co.chatapp.utilis.AppSharedData;
 import team.co.chatapp.utilis.Constants;
-
+//
 public class MainActivity extends AppCompatActivity {
     private TextView mLogout;
     private TextView mTitle;
