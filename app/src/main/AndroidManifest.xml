@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="team.co.chatapp">
+    package="team.wo.chatapp">
 
     <application
-        android:name=".utilis.APP"
+        android:name="team.wo.chatapp.utilis.APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,22 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
         <activity
-            android:name=".activity.ContactsActivity"
+            android:name="team.wo.chatapp.activity.ContactsActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.OtpVerificationActivity"
+            android:name="team.wo.chatapp.activity.OtpVerificationActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.ChatChannelActivity"
+            android:name="team.wo.chatapp.activity.ChatChannelActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="team.wo.chatapp.activity.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="team.wo.chatapp.activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="team.wo.chatapp.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,11 +34,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name="team.wo.chatapp.activity.MainActivity" />
 
 
         <service
-            android:name=".fcm.FCMService"
+            android:name="team.wo.chatapp.fcm.FCMService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
