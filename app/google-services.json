@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "216357835144-a9ce0mgpkgt86o00840ev5njvibn4a7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team.wo.chatapp",
+            "certificate_hash": "59f284a00d03130ed5e3c7d13646343409045aed"
+          }
+        },
+        {
           "client_id": "216357835144-mftbbhlsul0423d8tqn7gvgf4kbdadqv.apps.googleusercontent.com",
           "client_type": 3
         }

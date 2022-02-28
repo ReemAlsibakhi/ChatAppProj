@@ -77,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
                         name = chatChannel.getNames().get(chatChannel.getUsers().get(1));
 
                     }
+
+                if (chatChannel.getUsers().get(0).equals(AppSharedData.getUserData().getId()) && chatChannel.getUsers().get(1).equals(AppSharedData.getUserData().getId()) ){
+                    name = chatChannel.getNames().get(chatChannel.getUsers().get(0));
+               //     Log.e(TAG, "index: "+index );
+
+                }
                 Intent intent = new Intent(MainActivity.this, ChatChannelActivity.class);
                 intent.putExtra("chat", chatChannel);
                 intent.putExtra("name",name);

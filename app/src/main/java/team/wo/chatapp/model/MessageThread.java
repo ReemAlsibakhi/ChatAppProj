@@ -89,7 +89,7 @@ public class MessageThread implements  Parcelable {
     }
 
     public String getContent() {
-        return HelperMethods.AESDecryptionMethod(content);
+        return content;
     }
 
     public void setContent(String content) {

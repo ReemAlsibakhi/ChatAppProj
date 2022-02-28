@@ -15,6 +15,7 @@ import java.util.List;
 
 import team.wo.chatapp.R;
 import team.wo.chatapp.model.MessageThread;
+import team.wo.chatapp.utilis.HelperMethods;
 
 
 public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.AudioItemsViewHolder>{
@@ -58,12 +59,12 @@ public class ThreadAdapter extends RecyclerView.Adapter<ThreadAdapter.AudioItems
 
     @Override
     public void onBindViewHolder(@NonNull AudioItemsViewHolder holder, int position) {
-
+        HelperMethods helperMethod=new HelperMethods();
 //        holder.tvTime.setText(TimeAgo.getTimeAgo(dataList.get(position).getCreated()));
         holder.tvName.setText(dataList.get(position).getSendName());
         switch (dataList.get(position).getType()){
             case "text": {
-                holder.tvMsg.setText(dataList.get(position).getContent());
+                holder.tvMsg.setText(helperMethod.decode(dataList.get(position).getContent()));
                 holder.tvMsg.setVisibility(View.VISIBLE);
                 break;
             }

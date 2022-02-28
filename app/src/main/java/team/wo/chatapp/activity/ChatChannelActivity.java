@@ -31,6 +31,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.crypto.Cipher;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import team.wo.chatapp.R;
@@ -40,6 +42,7 @@ import team.wo.chatapp.model.MessageThread;
 import team.wo.chatapp.model.User;
 import team.wo.chatapp.network.ApiClient;
 import team.wo.chatapp.network.ApiService;
+import team.wo.chatapp.utilis.Aes256Class;
 import team.wo.chatapp.utilis.AppSharedData;
 import team.wo.chatapp.utilis.Constants;
 import team.wo.chatapp.utilis.HelperMethods;
@@ -59,6 +62,7 @@ public class ChatChannelActivity extends AppCompatActivity {
     private TextView mTitle;
     private String receiverToken;
     private String name;
+    HelperMethods helperMethods = new HelperMethods();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +82,9 @@ public class ChatChannelActivity extends AppCompatActivity {
 
         }
 
-        if(chatChannel!=null){
-            for(String id : chatChannel.getUsers()){
-                if(!AppSharedData.getUserData().getId().equals(id)){
+        if (chatChannel != null) {
+            for (String id : chatChannel.getUsers()) {
+                if (!AppSharedData.getUserData().getId().equals(id)) {
 
                     db.collection("users")
                             .document(id)
@@ -89,7 +93,7 @@ public class ChatChannelActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     receiverToken = documentSnapshot.getString("token");
-                                    Log.e("qqq",receiverToken);
+                                    Log.e("qqq", receiverToken);
                                 }
                             });
                 }
@@ -99,16 +103,16 @@ public class ChatChannelActivity extends AppCompatActivity {
 
         if (getIntent().getParcelableExtra("chat") != null) {
             chatChannel = getIntent().getParcelableExtra("chat");
-            Log.e(TAG, "getIntentData: hello chat"+chatChannel);
+            Log.e(TAG, "getIntentData: hello chat" + chatChannel);
 
             intentChatId = chatChannel.getChatId();
-            receiverToken=chatChannel.getTokens();
+            receiverToken = chatChannel.getTokens();
             Log.e(TAG, "chat id: " + intentChatId);
             Log.e(TAG, "token hi " + receiverToken);
             threadListener(intentChatId);
 
-            for(String id : chatChannel.getUsers()){
-                if(!AppSharedData.getUserData().getId().equals(id)){
+            for (String id : chatChannel.getUsers()) {
+                if (!AppSharedData.getUserData().getId().equals(id)) {
 
                     db.collection("users")
                             .document(id)
@@ -117,7 +121,7 @@ public class ChatChannelActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     receiverToken = documentSnapshot.getString("token");
-                                    Log.e("qqq",receiverToken);
+                                    Log.e("qqq", receiverToken);
                                 }
                             });
                 }
@@ -182,33 +186,10 @@ public class ChatChannelActivity extends AppCompatActivity {
         rvMsgs = findViewById(R.id.rv_msgs);
         btnSend = findViewById(R.id.btn_send);
         mMessage = findViewById(R.id.et_message);
-//        String name = "";
-//        if (user != null) {
-//            name = user.getName();
-//        }
-//        if (chatChannel != null) {
-//            name = chatChannel.getReceiverName().toString();
-//        }
-//        String name= "";
-//        if (user!=null){
-//            if (!user.getId().equals(AppSharedData.getUserData().getId())){
-//                name = user.getName();
-//            }
-//        }
-//        if (chatChannel!=null){
-//            Log.d(TAG, "initView() returned: " + chatChannel);
-//            if (!chatChannel.getUsers().get(0).equals(AppSharedData.getUserData().getId())){
-//                name = chatChannel.getNames().get(chatChannel.getUsers().get(0));
-//
-//            }
-//            if (!chatChannel.getUsers().get(1).equals(AppSharedData.getUserData().getId())){
-//                name = chatChannel.getNames().get(chatChannel.getUsers().get(1));
-//
-//            }
-//        }
-        if (name==null){
+
+        if (name == null) {
             mTitle.setText(user.getName());
-        }else{
+        } else {
             mTitle.setText(name);
         }
         initRVChats();
@@ -227,11 +208,14 @@ public class ChatChannelActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
+        //  String targetString = "Hello";
+
+
         if (intentChatId.isEmpty()) {
             createChannel(
                     new MessageThread(
                             AppSharedData.getUserData().getId().toString(),
-                            HelperMethods.AESEncryptionMethod(mMessage.getText().toString()),
+                            helperMethods.encode(mMessage.getText().toString()),
                             AppSharedData.getUserData().getName(),
                             "text", Calendar.getInstance().getTime().getTime())
             );
@@ -239,7 +223,8 @@ public class ChatChannelActivity extends AppCompatActivity {
         } else {
             sendMsg(new MessageThread(
                     AppSharedData.getUserData().getId().toString(),
-                    HelperMethods.AESEncryptionMethod(mMessage.getText().toString()),
+                    helperMethods.encode(mMessage.getText().toString()),
+                    //HelperMethods.AESEncryptionMethod(mMessage.getText().toString()),
                     AppSharedData.getUserData().getName(),
                     "text", Calendar.getInstance().getTime().getTime())
             );
@@ -299,12 +284,12 @@ public class ChatChannelActivity extends AppCompatActivity {
         try {
             JSONArray tokens = new JSONArray();
             tokens.put(receiverToken);
-            Log.e(TAG, "sendNotification: "+receiverToken );
+            Log.e(TAG, "sendNotification: " + receiverToken);
             JSONObject body = new JSONObject();
             JSONObject data = new JSONObject();
             data.put("channelId", intentChatId);
             data.put("title", AppSharedData.getUserData().getName());
-            data.put("message", messageThread.getContent());
+            data.put("message", helperMethods.decode(messageThread.getContent()));
             data.put("senderID", AppSharedData.getUserData().getId());
 //            data.put("token", receiverToken);
             body.put("registration_ids", tokens);

@@ -14,6 +14,7 @@ import java.util.List;
 import team.wo.chatapp.R;
 import team.wo.chatapp.model.ChatChannel;
 import team.wo.chatapp.utilis.AppSharedData;
+import team.wo.chatapp.utilis.HelperMethods;
 
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
@@ -52,9 +53,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             Log.e(TAG, "index: "+index );
 
         }
-        holder.mName.setText(data.getNames().get(index));
+        if (data.getUsers().get(1).equals(AppSharedData.getUserData().getId()) && data.getUsers().get(0).equals(AppSharedData.getUserData().getId()) ){
+            index = data.getUsers().get(0);
+            Log.e(TAG, "index: "+index );
 
-        holder.mLastMsg.setText(data.getLastMessage());
+        }
+        holder.mName.setText(data.getNames().get(index));
+        HelperMethods helperMethod=new HelperMethods();
+        holder.mLastMsg.setText(helperMethod.decode(data.getLastMessage()));
 
     }
 
