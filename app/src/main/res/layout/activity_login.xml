@@ -34,7 +34,7 @@
                 android:id="@+id/country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:ccp_defaultNameCode="PS"
+                app:ccp_defaultNameCode="SA"
                 app:ccp_showFlag="true"
                 app:ccp_showNameCode="true"
                 app:ccp_textSize="14sp" />
